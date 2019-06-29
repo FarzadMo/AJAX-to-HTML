@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Favorite Movies</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+
+</head>
+
+<body>
+    <div class="container">
+        <h2> Basic Table </h2>
+        <p>Here is our table:</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Movie Name</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Actors</th>
+                </tr>
+            </thead>
+            <tbody>
+               <tr>
+                   <td>Interstellar</td>
+                   <td>2014</td>
+                   <td>Ellen Burstyn</td>
+               </tr> 
+            </tbody>
+        </table>
+
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    //First function: Add data to the table
+        var createRow = function(data){
+            var tRow= $("<tr>");
+
+            var titleTd=$("<td>").text(data.Title);
+            var yearTd=$("<td>").text(data.Year);
+            var ActorsTd=$("<td>").text(data.Actors);
+
+            tRow.append(titleTd, yearTd, ActorsTd);
+            $("tbody").append(tRow);
+        }
+    //Second function: Get data from OMDB API
+        var searchOMDB = function(movie){
+            var queryURL = "https://www.omdbapi.com/?t=" + movie + "&apikey=trilogy";
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function(response){
+                createRow(response);
+            });
+        };  
+
+        searchOMDB("Mr. Nobody");
+        searchOMDB("The Little Mermaid");
+        searchOMDB("The Lion King");
+    </script>
+</body>
+</html>
